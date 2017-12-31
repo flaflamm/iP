@@ -1,0 +1,279 @@
+@charset "UTF-8";
+/*********************************
+*** Déclarations des variables ***
+*********************************/
+/***********************
+*** Style de la page ***
+***********************/
+body {
+  color: #444;
+}
+
+main {
+  margin: 0 1rem;
+}
+
+/************************
+*** Style de l'entête ***
+************************/
+header {
+  background-color: #444;
+  color: white;
+  margin-bottom: 2rem;
+  border-bottom: 0.9rem solid #0068D3;
+  box-shadow: 0 0.6rem 0 0 #4AD133;
+}
+
+header.noMenu {
+  padding: 1.5rem 2.5rem;
+}
+
+header.noMenu img {
+  vertical-align: -53%;
+}
+
+header.menu {
+  padding: 1rem 2.5rem 0 2.5rem;
+}
+
+header.menu a img {
+  width: 180px;
+  max-width: 80%;
+}
+
+header.menu .greetings {
+  display: block;
+}
+
+header.menu .greetings span:first-child {
+  margin-right: 1rem;
+}
+
+@media screen and (min-width: 600px) {
+  header.menu .greetings {
+    float: right;
+    display: inline-block;
+    margin-right: 2rem;
+  }
+  header.menu .greetings span {
+    display: block;
+    line-height: 1;
+  }
+}
+
+header.menu nav {
+  position: relative;
+}
+
+header.menu nav label {
+  float: right;
+  display: block;
+  cursor: pointer;
+}
+
+header.menu nav .icon {
+  font-size: 2.2em;
+}
+
+#showMenu {
+  display: none;
+}
+
+#showMenu + div {
+  display: none;
+}
+
+#showMenu:checked + div {
+  display: block;
+}
+
+#showMenu:checked + div a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  padding: 0.75em 0;
+}
+
+#showMenu:checked + div a.sub {
+  padding-top: 0;
+}
+
+#showMenu:checked + div a.sub::before {
+  content: '';
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.1rem;
+  margin-right: 0.75rem;
+  background-image: url("../icons/sub.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+@media screen and (min-width: 600px) {
+  #showMenu:checked + div {
+    display: block;
+    background-color: #444;
+    position: absolute;
+    right: -1rem;
+  }
+  #showMenu:checked + div a {
+    padding: 0.5em 1.5em;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  #showMenu:checked ~ .greetings {
+    display: none;
+  }
+}
+
+/*********************
+*** Style de liens ***
+*********************/
+a {
+  color: #0068D3;
+}
+
+/***********************
+*** Style des icones ***
+***********************/
+.icon {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-size: 1.5em;
+  line-height: 1;
+}
+
+/*********************************
+*** Style de ligne horizontale ***
+*********************************/
+hr {
+  border: 0;
+  height: 1px;
+  margin: 1px;
+  background-image: linear-gradient(to right, rgba(77, 77, 77, 0), rgba(77, 77, 77, 0.3) 25%, rgba(77, 77, 77, 0.3) 75%, rgba(77, 77, 77, 0));
+}
+
+/*************************
+*** Styles utilitaires ***
+*************************/
+.centered {
+  margin: auto;
+}
+
+.hidden {
+  display: none;
+}
+
+.light {
+  opacity: 0.75;
+}
+
+.lighter {
+  opacity: 0.5;
+}
+
+.message {
+  padding: 1rem 2rem;
+}
+
+.alert {
+  border: 1px solid #E23811;
+  background-color: #fef6f4;
+}
+
+/*************************
+*** Styles des boutons ***
+*************************/
+button, .button, input[type=submit] {
+  min-width: 6em;
+  padding: 0.75em;
+  background-color: #0068D3;
+  color: white;
+  border: none;
+  margin: 1rem 2rem;
+  cursor: pointer;
+}
+
+button:hover, .button:hover, input[type=submit]:hover {
+  background-color: #0075ed;
+}
+
+button.secondary, .button.secondary, input[type=submit].secondary {
+  background-color: #999;
+}
+
+button.secondary:hover, .button.secondary:hover, input[type=submit].secondary:hover {
+  background-color: #a6a6a6;
+}
+
+button.alert, .button.alert, input[type=submit].alert {
+  background-color: #E23811;
+}
+
+button.alert:hover, .button.alert:hover, input[type=submit].alert:hover {
+  background-color: #ee451e;
+}
+
+button.large, .button.large, input[type=submit].large {
+  font-size: 1.5em;
+}
+
+button:disabled, button.disabled, .button:disabled, .button.disabled, input[type=submit]:disabled, input[type=submit].disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+button.settings, button.edit, button.visibility, .button.settings, .button.edit, .button.visibility, input[type=submit].settings, input[type=submit].edit, input[type=submit].visibility {
+  padding-right: 3em;
+  position: relative;
+}
+
+button.settings::after, button.edit::after, button.visibility::after, .button.settings::after, .button.edit::after, .button.visibility::after, input[type=submit].settings::after, input[type=submit].edit::after, input[type=submit].visibility::after {
+  position: absolute;
+  right: 0.75em;
+  font-family: 'Material Icons';
+}
+
+button.settings::after, .button.settings::after, input[type=submit].settings::after {
+  content: "settings";
+}
+
+button.edit::after, .button.edit::after, input[type=submit].edit::after {
+  content: "edit";
+}
+
+button.visibility::after, .button.visibility::after, input[type=submit].visibility::after {
+  content: "visibility";
+}
+
+.buttonBar {
+  display: inline-block;
+}
+
+.buttonBar.large button, .buttonBar.large .button {
+  font-size: 1.5em;
+}
+
+.buttonBar button, .buttonBar .button {
+  margin: 1rem 0 1rem 0.1rem;
+}
+
+.buttonBar button:first-child, .buttonBar .button:first-child {
+  margin-left: 2rem;
+}
+
+.buttonBar button:last-child, .buttonBar .button:last-child {
+  margin-right: 2rem;
+}
+
+/****************************
+*** Styles de formulaires ***
+****************************/
+input {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.25em;
+  margin-bottom: 1rem;
+  text-align: center;
+}

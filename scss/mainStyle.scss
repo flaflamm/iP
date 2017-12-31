@@ -1,0 +1,276 @@
+/*********************************
+*** Déclarations des variables ***
+*********************************/
+
+$primary-color: #444;
+$secondary-color: #999;
+$accent-color1: #0068D3;
+$accent-color2: #4AD133;
+$alert-color: #E23811;
+
+
+
+@mixin border-radius($radius:5px) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+
+
+
+/***********************
+*** Style de la page ***
+***********************/
+
+body {
+  color: $primary-color;
+}
+
+main {
+  margin: 0 1rem;
+}
+/************************
+*** Style de l'entête ***
+************************/
+header {
+	background-color: $primary-color;
+  color: white;
+	margin-bottom: 2rem;
+  border-bottom: 0.9rem solid $accent-color1;
+  box-shadow: 0 0.6rem 0 0 $accent-color2;
+
+  &.noMenu {
+    padding: 1.5rem 2.5rem;
+
+    img {
+      vertical-align: -53%;
+    }
+  }
+
+  &.menu {
+    padding: 1rem 2.5rem 0 2.5rem;
+
+    a img {
+      width: 180px;
+      max-width: 80%;
+    }
+
+    .greetings {
+      display: block;
+
+      span:first-child {margin-right: 1rem;}
+    }
+
+
+    @media screen and (min-width: 600px) {
+      .greetings {
+        float: right;
+        display: inline-block;
+        margin-right: 2rem;
+
+        span {
+          display: block;
+          line-height: 1;
+        }
+      }
+    }
+
+    nav {
+      position: relative;
+
+      label {
+        float: right;
+        display: block;
+        cursor: pointer;
+      }
+
+      .icon {
+        font-size: 2.2em;
+      }
+    }
+  }
+}
+
+#showMenu {
+  display: none;
+
+  &+div {
+    display: none;
+  }
+
+  &:checked+div {
+    display: block;
+
+    a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 0.75em 0;
+
+      &.sub {
+        padding-top: 0;
+
+        &::before {
+          content: '';
+          display: inline-block;
+          width: 1.25rem;
+          height: 1.1rem;
+          margin-right: 0.75rem;
+          background-image: url('../icons/sub.svg');
+          background-repeat: no-repeat;
+          background-size: contain;
+        }
+      }
+    }
+
+    @media screen and (min-width: 600px) {
+      display: block;
+      background-color: $primary-color;
+      position: absolute;
+      right: -1rem;
+
+      a { padding: 0.5em 1.5em;}
+    }
+  }
+
+  @media screen and (max-width: 599px) {
+    &:checked~.greetings {display: none;}
+  }
+}
+
+/*********************
+*** Style de liens ***
+*********************/
+a {
+  color: $accent-color1;
+}
+
+
+/***********************
+*** Style des icones ***
+***********************/
+.icon {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-size: 1.5em;
+  line-height: 1;
+}
+
+
+/*********************************
+*** Style de ligne horizontale ***
+*********************************/
+
+hr {
+    border: 0;
+   	height: 1px;
+   	margin: 1px;
+   	background-image: linear-gradient(to right, hsla(0,0%,30%,0), hsla(0,0%,30%,0.3) 25%, hsla(0,0%,30%,0.3) 75%, hsla(0,0%,30%,0));
+	}
+
+
+
+/*************************
+*** Styles utilitaires ***
+*************************/
+
+.centered {
+  margin: auto;
+}
+
+.hidden {
+  display: none;
+}
+
+.light {
+  opacity: 0.75;
+}
+
+.lighter {
+  opacity: 0.5;
+}
+
+.message {
+  padding: 1rem 2rem;
+}
+
+.alert {
+  border: 1px solid $alert-color;
+  background-color: lighten($alert-color, 50%);
+}
+
+
+/*************************
+*** Styles des boutons ***
+*************************/
+
+
+button, .button, input[type=submit] {
+  min-width: 6em;
+  padding: 0.75em;
+  background-color: $accent-color1;
+  color: white;
+  border: none;
+  margin: 1rem 2rem;
+  cursor: pointer;
+
+  &:hover { background-color: lighten($accent-color1, 5%); }
+
+  &.secondary { background-color: $secondary-color;
+    &:hover { background-color: lighten($secondary-color, 5%); }
+  }
+
+  &.alert { background-color: $alert-color;
+    &:hover { background-color: lighten($alert-color, 5%); }
+  }
+
+  &.large { font-size: 1.5em; }
+
+  &:disabled, &.disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+
+  &.settings, &.edit, &.visibility {
+    padding-right: 3em;
+    position: relative;
+
+    &::after {
+      position: absolute;
+      right: 0.75em;
+      font-family: 'Material Icons';
+    }
+  }
+
+  &.settings::after { content: "settings"; }
+  &.edit::after { content: "edit"; }
+  &.visibility::after { content: "visibility"; }
+}
+
+
+.buttonBar {
+  display: inline-block;
+
+  &.large button, &.large .button {font-size: 1.5em;}
+
+  button, .button {
+    margin: 1rem 0 1rem 0.1rem;
+
+    &:first-child {margin-left: 2rem;}
+    &:last-child {margin-right: 2rem;}
+  }
+}
+
+/****************************
+*** Styles de formulaires ***
+****************************/
+
+input {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.25em;
+  margin-bottom: 1rem;
+  text-align: center;
+}
