@@ -7,6 +7,7 @@ $secondary-color: #999;
 $accent-color1: #0068D3;
 $accent-color2: #4AD133;
 $alert-color: #E23811;
+$caution-color: #f9bf10;
 
 
 
@@ -29,23 +30,52 @@ body {
 }
 
 main {
-  margin: 0 1rem;
+  width: 90%;
+  margin: 2rem auto 5rem auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+
+  section {
+    //flex: 1 1 auto;
+    padding: 1rem;
+    width: 400px;
+    margin: 2rem 0;
+
+    &.title {
+      width: 100%;
+    }
+  }
+
+  /*section:nth-child(odd) {
+    background-color: lighten($accent-color1,30%);
+  }
+
+  section:nth-child(even) {
+    background-color: lighten($accent-color2,30%);
+  }//*/
 }
+
 /************************
 *** Style de l'entête ***
 ************************/
 header {
 	background-color: $primary-color;
   color: white;
-	margin-bottom: 2rem;
+	margin-bottom: 0.6rem;
   border-bottom: 0.9rem solid $accent-color1;
   box-shadow: 0 0.6rem 0 0 $accent-color2;
 
   &.noMenu {
     padding: 1.5rem 2.5rem;
 
+    @media screen and (max-width: 670px) {
+      h1 {font-size: 2em;}
+    }
+
     img {
-      vertical-align: -53%;
+      vertical-align: -0.8em;
+      width: 7.25em;
     }
   }
 
@@ -88,6 +118,7 @@ header {
 
       .icon {
         font-size: 2.2em;
+        top: -1rem;
       }
     }
   }
@@ -140,6 +171,80 @@ header {
   }
 }
 
+
+/***********************************
+*** Style de la boîte de message ***
+***********************************/
+
+#message {
+  padding: 1rem 2rem;
+  text-align: center;
+  display: none;
+
+  &.alert {
+    border-bottom: 1px solid $alert-color;
+    background-color: lighten($alert-color, 45%);
+    color: darken($alert-color, 20%);
+  }
+
+  &.success {
+    border-bottom: 1px solid $accent-color2;
+    background-color: lighten($accent-color2, 45%);
+    color: darken($accent-color2, 20%);
+  }
+
+  &.caution {
+    border-bottom: 1px solid $caution-color;
+    background-color: lighten($caution-color, 35%);
+    color: darken($caution-color, 25%);
+  }
+
+  &.accent {
+    border-bottom: 1px solid $accent-color1;
+    background-color: lighten($accent-color1, 45%);
+    color: darken($accent-color1, 20%);
+  }
+}
+
+/***********************
+*** Style des titres ***
+***********************/
+
+h1 {
+	font-size: 2.5em;
+	font-weight: 300;
+	margin: 1em 0 0 0;
+}
+h2 {
+	font-size: 1.7em;
+	font-weight: 300;
+	margin: 0.75em 0 0 0;
+}
+h3, .h3-like {
+	font-size: 1.2em;
+	font-weight: 600;
+	margin: .5em 0 0 0;
+}
+h4, .h4-like {
+	font-size: 1.4286em; /* equiv 20px */
+	font-weight: normal;
+	line-height: 1.05em;
+	margin:  1.05em 0 0 0;
+}
+h5, .h5-like {
+	font-size: 1.2857em; /* equiv 18px */
+	font-weight: normal;
+	line-height: 1.1667em;
+	margin:  1.1667em 0 0 0;
+}
+h6, .h6-like {
+	font-size: 1.1429em; /* equiv 16px */
+	font-weight: normal;
+	line-height: 1.3125em;
+	margin:  1.3125em 0 0 0;
+}
+
+
 /*********************
 *** Style de liens ***
 *********************/
@@ -154,8 +259,35 @@ a {
 .icon {
   font-family: 'Material Icons';
   font-style: normal;
-  font-size: 1.5em;
-  line-height: 1;
+  position: relative;
+  top: 0.15em;
+  cursor: pointer;
+}
+
+
+/*******************************
+*** Style de details/summary ***
+*******************************/
+.details {
+  .summary { cursor: pointer; }
+
+//  &>*:not(.summary) { display: none; }
+}
+
+
+/****************************
+*** Style des définitions ***
+****************************/
+.definition {
+  padding-left: 2rem;
+  position: relative;
+
+  .definitionTerm {
+    font-weight: 600;
+    position: relative;
+    left: -2rem;
+    margin-right: 1rem;
+  }
 }
 
 
@@ -192,15 +324,33 @@ hr {
   opacity: 0.5;
 }
 
-.message {
-  padding: 1rem 2rem;
-}
+/**************************
+*** Styles des tableaux ***
+**************************/
 
-.alert {
-  border: 1px solid $alert-color;
-  background-color: lighten($alert-color, 50%);
-}
+table {
+  border: 1px solid $secondary-color;
+  border-collapse: collapse;
 
+  td, th {
+    padding: 0.2rem 1rem;
+  }
+
+  thead, th {
+    background-color: lighten($secondary-color,28%);
+    font-weight: 600;
+    text-align: left;
+  }
+
+  tr:nth-child(even) {
+    background-color: lighten($secondary-color,36%);
+  }
+
+  tfoot {
+    background-color: lighten($secondary-color,32%);
+    font-weight: 600;
+  }
+}
 
 /*************************
 *** Styles des boutons ***
@@ -251,6 +401,7 @@ button, .button, input[type=submit] {
 
 
 .buttonBar {
+
   display: inline-block;
 
   &.large button, &.large .button {font-size: 1.5em;}
@@ -267,10 +418,65 @@ button, .button, input[type=submit] {
 *** Styles de formulaires ***
 ****************************/
 
-input {
+input:not([type="checkbox"]):not([type="radio"]), select {
   width: 100%;
+  height: 4.8rem;
   padding: 1rem;
   font-size: 1.25em;
   margin-bottom: 1rem;
   text-align: center;
+  border: 1px solid $secondary-color;
+
+  &:not([type="submit"]) { background-color: white; }
+
+  &.large {
+    height: 7.2rem;
+  }
+}
+
+input[type="checkbox"], input[type="radio"] {
+  height: 1.35em;
+  width: 1.35em;
+  position: relative;
+  top: 0.2em;
+}
+
+.inlineInput {
+  display: flex;
+
+  input, select {flex: 1 1 auto;}
+
+  & *:not(input):not(select) {
+    margin: 1rem 2rem 1rem 2rem;
+    word-wrap: normal;
+    flex: 0 0 auto;
+
+    &:first-child {margin-left: 0;}
+    &:last-child {margin-right: 0;}
+
+    &.accent, &.secondary {
+      margin: 0;
+      padding: 1rem 2rem 1rem 2rem;
+      height: 4.8rem;
+      border: 1px solid $secondary-color;
+
+      &:first-child {border-right: none;}
+      &:last-child {border-left: none;}
+    }
+
+    &.accent {
+      //border: 1px solid darken($accent-color1,30%);
+      background-color: $accent-color1;
+      color: white;
+    }
+
+    &.secondary {
+      background-color: lighten($secondary-color, 30%);
+    }
+
+  }
+}
+
+fieldset {
+  border: 1px solid $primary-color;
 }

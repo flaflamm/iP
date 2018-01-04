@@ -10,7 +10,28 @@ body {
 }
 
 main {
-  margin: 0 1rem;
+  width: 90%;
+  margin: 2rem auto 5rem auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  /*section:nth-child(odd) {
+    background-color: lighten($accent-color1,30%);
+  }
+
+  section:nth-child(even) {
+    background-color: lighten($accent-color2,30%);
+  }//*/
+}
+
+main section {
+  padding: 1rem;
+  width: 400px;
+  margin: 2rem 0;
+}
+
+main section.title {
+  width: 100%;
 }
 
 /************************
@@ -19,7 +40,7 @@ main {
 header {
   background-color: #444;
   color: white;
-  margin-bottom: 2rem;
+  margin-bottom: 0.6rem;
   border-bottom: 0.9rem solid #0068D3;
   box-shadow: 0 0.6rem 0 0 #4AD133;
 }
@@ -28,8 +49,15 @@ header.noMenu {
   padding: 1.5rem 2.5rem;
 }
 
+@media screen and (max-width: 670px) {
+  header.noMenu h1 {
+    font-size: 2em;
+  }
+}
+
 header.noMenu img {
-  vertical-align: -53%;
+  vertical-align: -0.8em;
+  width: 7.25em;
 }
 
 header.menu {
@@ -73,6 +101,7 @@ header.menu nav label {
 
 header.menu nav .icon {
   font-size: 2.2em;
+  top: -1rem;
 }
 
 #showMenu {
@@ -127,6 +156,84 @@ header.menu nav .icon {
   }
 }
 
+/***********************************
+*** Style de la boîte de message ***
+***********************************/
+#message {
+  padding: 1rem 2rem;
+  text-align: center;
+  display: none;
+}
+
+#message.alert {
+  border-bottom: 1px solid #E23811;
+  background-color: #fce2dc;
+  color: #83200a;
+}
+
+#message.success {
+  border-bottom: 1px solid #4AD133;
+  background-color: #f0fbee;
+  color: #2c811d;
+}
+
+#message.caution {
+  border-bottom: 1px solid #f9bf10;
+  background-color: #fdeebe;
+  color: #866603;
+}
+
+#message.accent {
+  border-bottom: 1px solid #0068D3;
+  background-color: #badcff;
+  color: #00366d;
+}
+
+/***********************
+*** Style des titres ***
+***********************/
+h1 {
+  font-size: 2.5em;
+  font-weight: 300;
+  margin: 1em 0 0 0;
+}
+
+h2 {
+  font-size: 1.7em;
+  font-weight: 300;
+  margin: 0.75em 0 0 0;
+}
+
+h3, .h3-like {
+  font-size: 1.2em;
+  font-weight: 600;
+  margin: .5em 0 0 0;
+}
+
+h4, .h4-like {
+  font-size: 1.4286em;
+  /* equiv 20px */
+  font-weight: normal;
+  line-height: 1.05em;
+  margin: 1.05em 0 0 0;
+}
+
+h5, .h5-like {
+  font-size: 1.2857em;
+  /* equiv 18px */
+  font-weight: normal;
+  line-height: 1.1667em;
+  margin: 1.1667em 0 0 0;
+}
+
+h6, .h6-like {
+  font-size: 1.1429em;
+  /* equiv 16px */
+  font-weight: normal;
+  line-height: 1.3125em;
+  margin: 1.3125em 0 0 0;
+}
+
 /*********************
 *** Style de liens ***
 *********************/
@@ -140,8 +247,31 @@ a {
 .icon {
   font-family: 'Material Icons';
   font-style: normal;
-  font-size: 1.5em;
-  line-height: 1;
+  position: relative;
+  top: 0.15em;
+  cursor: pointer;
+}
+
+/*******************************
+*** Style de details/summary ***
+*******************************/
+.details .summary {
+  cursor: pointer;
+}
+
+/****************************
+*** Style des définitions ***
+****************************/
+.definition {
+  padding-left: 2rem;
+  position: relative;
+}
+
+.definition .definitionTerm {
+  font-weight: 600;
+  position: relative;
+  left: -2rem;
+  margin-right: 1rem;
 }
 
 /*********************************
@@ -173,13 +303,31 @@ hr {
   opacity: 0.5;
 }
 
-.message {
-  padding: 1rem 2rem;
+/**************************
+*** Styles des tableaux ***
+**************************/
+table {
+  border: 1px solid #999;
+  border-collapse: collapse;
 }
 
-.alert {
-  border: 1px solid #E23811;
-  background-color: #fef6f4;
+table td, table th {
+  padding: 0.2rem 1rem;
+}
+
+table thead, table th {
+  background-color: #e0e0e0;
+  font-weight: 600;
+  text-align: left;
+}
+
+table tr:nth-child(even) {
+  background-color: whitesmoke;
+}
+
+table tfoot {
+  background-color: #ebebeb;
+  font-weight: 600;
 }
 
 /*************************
@@ -270,10 +418,77 @@ button.visibility::after, .button.visibility::after, input[type=submit].visibili
 /****************************
 *** Styles de formulaires ***
 ****************************/
-input {
+input:not([type="checkbox"]):not([type="radio"]), select {
   width: 100%;
+  height: 4.8rem;
   padding: 1rem;
   font-size: 1.25em;
   margin-bottom: 1rem;
   text-align: center;
+  border: 1px solid #999;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), select:not([type="submit"]) {
+  background-color: white;
+}
+
+input:not([type="checkbox"]):not([type="radio"]).large, select.large {
+  height: 7.2rem;
+}
+
+input[type="checkbox"], input[type="radio"] {
+  height: 1.35em;
+  width: 1.35em;
+  position: relative;
+  top: 0.2em;
+}
+
+.inlineInput {
+  display: flex;
+}
+
+.inlineInput input, .inlineInput select {
+  flex: 1 1 auto;
+}
+
+.inlineInput *:not(input):not(select) {
+  margin: 1rem 2rem 1rem 2rem;
+  word-wrap: normal;
+  flex: 0 0 auto;
+}
+
+.inlineInput *:not(input):not(select):first-child {
+  margin-left: 0;
+}
+
+.inlineInput *:not(input):not(select):last-child {
+  margin-right: 0;
+}
+
+.inlineInput *:not(input):not(select).accent, .inlineInput *:not(input):not(select).secondary {
+  margin: 0;
+  padding: 1rem 2rem 1rem 2rem;
+  height: 4.8rem;
+  border: 1px solid #999;
+}
+
+.inlineInput *:not(input):not(select).accent:first-child, .inlineInput *:not(input):not(select).secondary:first-child {
+  border-right: none;
+}
+
+.inlineInput *:not(input):not(select).accent:last-child, .inlineInput *:not(input):not(select).secondary:last-child {
+  border-left: none;
+}
+
+.inlineInput *:not(input):not(select).accent {
+  background-color: #0068D3;
+  color: white;
+}
+
+.inlineInput *:not(input):not(select).secondary {
+  background-color: #e6e6e6;
+}
+
+fieldset {
+  border: 1px solid #444;
 }

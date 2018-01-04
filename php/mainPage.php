@@ -33,15 +33,25 @@ function loadPage($jsFiles) {
   	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&amp;subset=greek" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <link href="css/base.css" rel="stylesheet">
+    <link href="css/base.css?v=<?=time();/**** Enlever cette partie sur la version officielle ****/?>" rel="stylesheet">
     <link href="css/mainStyle.css?v=<?=time();/**** Enlever cette partie sur la version officielle ****/?>" rel="stylesheet">
 
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#0075ed">
+    <meta name="apple-mobile-web-app-title" content="infoPhysique">
+    <meta name="application-name" content="infoPhysique">
+    <meta name="theme-color" content="#444444">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <?php foreach($jsFiles as $file) {echo "<script src='$file'></script>".PHP_EOL;} ?>
+    <?php $jsFiles[]='js/mainScripts.js'; foreach($jsFiles as $file) {echo "<script src='$file'></script>".PHP_EOL;} ?>
   </head>
 
   <body>
     <?php loadHeader(); ?>
+    <div id='message'></div>
     <main>
       <?php mainContent(); ?>
     </main>
@@ -51,8 +61,7 @@ function loadPage($jsFiles) {
 
 
 function loadHeader() {
-  $user='prof'; //Il faudra déterminer le type d'utilisateur
-  $_SESSION['name'] = 'François Laflamme'; //Devra contenir le nom de l'utilisateur...
+  $user=''; //Il faudra déterminer le type d'utilisateur (prof, étudiant ou non connecté)
 
   switch ($user) { //Afficher un menu différent si c'est un prof, un étudiant (?) ou si on n'est pas connecté.
     case 'prof':
