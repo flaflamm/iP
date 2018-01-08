@@ -25,6 +25,7 @@ main {
 }
 
 main section {
+  flex: 0 1 auto;
   padding: 1rem;
   width: 400px;
   margin: 2rem 0;
@@ -93,41 +94,33 @@ header.menu nav {
   position: relative;
 }
 
-header.menu nav label {
+header.menu nav #menuIcon {
   float: right;
   display: block;
-  cursor: pointer;
-}
-
-header.menu nav .icon {
   font-size: 2.2em;
   top: -1rem;
 }
 
-#showMenu {
+#mainMenu {
   display: none;
 }
 
-#showMenu + div {
-  display: none;
-}
-
-#showMenu:checked + div {
+#mainMenu.open {
   display: block;
 }
 
-#showMenu:checked + div a {
+#mainMenu.open a {
   display: block;
   color: white;
   text-decoration: none;
   padding: 0.75em 0;
 }
 
-#showMenu:checked + div a.sub {
+#mainMenu.open a.sub {
   padding-top: 0;
 }
 
-#showMenu:checked + div a.sub::before {
+#mainMenu.open a.sub::before {
   content: '';
   display: inline-block;
   width: 1.25rem;
@@ -139,19 +132,19 @@ header.menu nav .icon {
 }
 
 @media screen and (min-width: 600px) {
-  #showMenu:checked + div {
+  #mainMenu.open {
     display: block;
     background-color: #444;
     position: absolute;
     right: -1rem;
   }
-  #showMenu:checked + div a {
+  #mainMenu.open a {
     padding: 0.5em 1.5em;
   }
 }
 
 @media screen and (max-width: 599px) {
-  #showMenu:checked ~ .greetings {
+  #mainMenu.open.open ~ .greetings {
     display: none;
   }
 }
@@ -257,6 +250,10 @@ a {
 *******************************/
 .details .summary {
   cursor: pointer;
+}
+
+.details > *:not(.summary) {
+  display: none;
 }
 
 /****************************

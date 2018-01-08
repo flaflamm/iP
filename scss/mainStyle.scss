@@ -37,7 +37,7 @@ main {
   justify-content: space-around;
 
   section {
-    //flex: 1 1 auto;
+    flex: 0 1 auto;
     padding: 1rem;
     width: 400px;
     margin: 2rem 0;
@@ -110,13 +110,9 @@ header {
     nav {
       position: relative;
 
-      label {
+      #menuIcon {
         float: right;
         display: block;
-        cursor: pointer;
-      }
-
-      .icon {
         font-size: 2.2em;
         top: -1rem;
       }
@@ -124,14 +120,10 @@ header {
   }
 }
 
-#showMenu {
+#mainMenu {
   display: none;
 
-  &+div {
-    display: none;
-  }
-
-  &:checked+div {
+  &.open {
     display: block;
 
     a {
@@ -164,12 +156,15 @@ header {
 
       a { padding: 0.5em 1.5em;}
     }
-  }
 
-  @media screen and (max-width: 599px) {
-    &:checked~.greetings {display: none;}
+    @media screen and (max-width: 599px) {
+      &.open~.greetings {display: none;}
+    }
   }
 }
+
+
+
 
 
 /***********************************
@@ -271,7 +266,7 @@ a {
 .details {
   .summary { cursor: pointer; }
 
-//  &>*:not(.summary) { display: none; }
+  &>*:not(.summary) { display: none; }
 }
 
 

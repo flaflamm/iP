@@ -6,21 +6,25 @@
 ***            "toutes" les pages             ***
 *************************************************/
 require_once('php/utils.php');
+//Déconnecter l'utilisateur si le querystring contient dc=dc
+if(isset($_GET['dc']) && $_GET['dc']=='dc') {
+  $_SESSION=array();
+  session_destroy();
+}
 
+//Créer l'objet user
+require_once('classes/classeUtilisateur.php');
+$user = chargeUtilisateur();
 
 
 function loadPage($jsFiles) {
-  //Déconnecter l'utilisateur si le querystring contient dc=dc
-  if(isset($_GET['dc']) && $_GET['dc']=='dc') {
-    $_SESSION=array();
-    session_destroy();
-  }
+  global $user;
 
-  //Vérifier si l'utilisateur est connecté, s'il ne l'est pas il faut le rediriger sur la page index.php
-  if(!(isset($_SESSION['prof']) || isset($_SESSION['matricule']))) {
-      $fileName  = substrBetween($_SERVER['REQUEST_URI'],'/','?');
-      if($fileName!='index.php') { header('Location: index.php'); exit; }
-  }//*/
+  //Si l'utilisateur n'est pas connecté il faut le rediriger sur la page index.php
+  if(!$user->getType()) {
+    $fileName  = substrBetween($_SERVER['REQUEST_URI'],'/','?');
+    if($fileName!='index.php') { header('Location: index.php'); exit; }
+  }
   ?>
   <!DOCTYPE html>
   <html  lang="fr">
@@ -46,14 +50,23 @@ function loadPage($jsFiles) {
     <meta name="theme-color" content="#444444">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <?php $jsFiles[]='js/mainScripts.js'; foreach($jsFiles as $file) {echo "<script src='$file'></script>".PHP_EOL;} ?>
+    <?php $jsFiles[]='js/mainScripts.js'; foreach($jsFiles as $file) {echo "<script src='$file?v=".time()."'></script>".PHP_EOL;} ?>
   </head>
 
   <body>
     <?php loadHeader(); ?>
     <div id='message'></div>
     <main>
-      <?php mainContent(); ?>
+      <?php
+      mainContent();
+      if(error_reporting()) {
+        echo '<section style="width:100%; display: flex; flex-flow: row wrap;">';
+        varDump($_SESSION);
+        //echo '</section><section>';
+        varDump($user);
+        echo '</section>';
+      }
+       ?>
     </main>
   </body>
   <?php
@@ -61,22 +74,42 @@ function loadPage($jsFiles) {
 
 
 function loadHeader() {
-  $user=''; //Il faudra déterminer le type d'utilisateur (prof, étudiant ou non connecté)
-
-  switch ($user) { //Afficher un menu différent si c'est un prof, un étudiant (?) ou si on n'est pas connecté.
-    case 'prof':
+  global $user;
+  //Afficher un menu différent si c'est un prof, un étudiant ou si on n'est pas connecté.
+  switch ($user->getType()) {
+    case 'p':
+      $listeCours = $user->getCours('actuelle');
       ?><header class='menu'>
           <nav>
             <a href='index.php'><img src='icons/titre-dark.svg' alt='infoPhysique'/></a>
-            <label for='showMenu'><i class="icon">menu</i></label>
-            <input type='checkbox' id='showMenu' name='showMenu'/>
-            <div>
-              <a href='cours.php?id=1'>Mécanique</a>
-              <a href='cours.php?id=2'>Électricité & magnétisme</a>
-              <a href='dispo.php' class='sub'>Disponibilités</a>
+            <i class="icon" id='menuIcon'>menu</i>
+            <div id='mainMenu'>
+              <?php foreach($listeCours as $cours) {echo '<a href="cours.php?id='.$cours->getId().'">'.$cours->getTitre().'</a>'.PHP_EOL;}
+              if($user->getRV()) {echo '<a href="dispo.php">Disponibilités</a>';} ?>
+              <a href='perso.php'>Paramètre personnels</a>
               <a href='index.php?dc=dc'>Se déconnecter</a>
             </div>
-            <span class='greetings'><span class='small light'>Bonjour</span><span><?=$_SESSION['name'];?></span></span>
+            <span class='greetings'><span class='small light'>Bonjour</span><span><?=$user->getNom('p n');?></span></span>
+          </nav>
+      </header><?php
+      break;
+    case 'e':
+      $listeCours = $user->getCours('actuelle');
+      ?><header class='menu'>
+          <nav>
+            <a href='cours.php'><img src='icons/titre-dark.svg' alt='infoPhysique'/></a>
+            <i class="icon" id='menuIcon'>menu</i>
+            <div id='mainMenu'>
+              <?php foreach($listeCours as $cours) {
+                echo '<a href="cours.php?id='.$cours->getId().'">'.$cours->getTitre().'</a>'.PHP_EOL;
+                $listeProfs = $cours->getProfs();
+                foreach($listeProfs as $prof) {
+                  if($prof->getRV()) {echo '<a href="dispo.php?id='.$prof->getId().'" class="sub">Dispo: '.$prof->getNom('p n').'</a>'.PHP_EOL; }
+                }
+              } ?>
+              <a href='index.php?dc=dc'>Se déconnecter</a>
+            </div>
+            <span class='greetings'><span class='small light'>Bonjour</span><span><?=$user->getNom('p n');?></span></span>
           </nav>
       </header><?php
       break;
