@@ -16,7 +16,7 @@ if(isset($_GET['dc']) && $_GET['dc']=='dc') {
 require_once('classes/classeUtilisateur.php');
 $user = chargeUtilisateur();
 
-
+//Charge la page principale
 function loadPage($jsFiles) {
   global $user;
 
