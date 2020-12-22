@@ -11,12 +11,11 @@ function connexionEtudiant($username,$matricule) {
   //Vérifie si les nom d'utilisateur/mot de passe correspondent à un étudiant (retourne TRUE si oui et FALSE si non).
   //Doit aussi fixer des valeurs de $_SESSION[matricule], $_SESSION[prenom] et $_SESSION[nom]
   if(preg_match("/^\d{7,8}$/",$matricule) && preg_match("/^[a-zA-Z]{2,8}$/", $username) ) {
-    global $mysqli;
-
     //Rechercher s'il existe un étudiant avec ce matricule (sinon retourner FALSE)
-    $results = $mysqli->query('SELECT `prenom`, `nom` FROM `Etudiants` WHERE `matricule`="'.$matricule.'"');
-  	if($etu = $results->fetch_assoc()) {
-      $results->close();
+    $results = mysqliQuery('SELECT `prenom`, `nom` FROM `Etudiants` WHERE `matricule`=?','s',$matricule);
+
+    if(count($results)==1) {
+      $etu = $results[0];
 
       //Vérifier que le nom de l'étudiant (jusqu'à 8 lettres en minuscules, sans espaces et sans accents) correxpond à son username.
       $accent = array('é','è','ê','ë','à','â','ä','î','ï','ì','ô','ò','ö','ù','û','ü','ỳ','ÿ','ŷ','ç','É','È','Ê','Ë','À','Â','Ä','Î','Ï','Ì','Ô','Ò','Ö','Ù','Û','Ü','Ŷ','Ỳ','Ÿ','Ç','-',' ',"'",'.');
@@ -28,7 +27,7 @@ function connexionEtudiant($username,$matricule) {
         $_SESSION['prenom']=$etu['prenom'];
         return TRUE;
       }
-    }
+    }//*/
   }
   return FALSE;
 }
@@ -36,22 +35,38 @@ function connexionEtudiant($username,$matricule) {
 
 
 
-function connexionProf($username,$hash) {
+function connexionProf($username,$password) {
   //Vérifie si les nom d'utilisateur/mot de passe correspondent à un prof (si oui retourne à page où rediriger le prof et si non retourne FALSE).
   //Doit aussi fixer des valeurs de $_SESSION=résultat de la query sur la table prof (moins le hash du password)...
 
+  $hash = encryptPassword($password);
+
   //Recherche un professeur(s) utilisant ce nom d'utilisateur
-  global $mysqli;
-  $results = $mysqli->query('SELECT * FROM `Profs` WHERE `username`="'.$username.'"');
-  while($prof = $results->fetch_assoc()) {
-    //Vérifier si le mot de passe correspond:
-    if($prof['password']==$hash) {
+  //global $mysqli;
+  $results = mysqliQuery('SELECT * FROM `Profs` WHERE `username`=?','s',$username);
+
+  foreach($results as $prof) {
+    if($prof['hash'] != '') { //Vérifier si le mot de passe correspond (nouvelle version)
+      if(password_verify($password , $prof['hash'])) {
+        unset($prof['password']);
+        unset($prof['hash']);
+        $_SESSION = $prof;
+        return TRUE;
+        }
+      }
+    elseif($prof['password']==$hash) {
+      /*** CETTE SECTION SERA À ENLEVER LORSQUE TOUS LES MOTS DE PASSE AURONT UN NOUVEAU HASH ***/
       //Cela correspond, enregistrer les informations de session et quitter la fonction
+
+      //Générer un nouveau $hash pour une meilleure sécurité
+      mysqliQuery('UPDATE `Profs` SET `hash` = ? WHERE `index` = ?','si',password_hash($password,PASSWORD_DEFAULT),$prof['index']);
+
       unset($prof['password']);
+      unset($prof['hash']);
       $_SESSION = $prof;
       return TRUE;
     }
-  }
+  }//*/
   return FALSE;
 }
 
@@ -64,14 +79,37 @@ function encryptPassword($password) {
 }//*/
 
 
+function setKeepMeLoggedCookie($userType, $userId) {
+  $selector = base64_encode(random_bytes(9));
+  $authenticator = random_bytes(33);
+  $limit = time() + 30*86400;
 
+
+  setcookie(
+      'remember',
+       $selector.':'.base64_encode($authenticator),
+       $limit,
+       '/',
+       $_SERVER['HTTP_HOST'],
+       false, // TLS-only
+       true  // http-only
+  );
+
+  mysqliQuery('INSERT INTO AuthTokens (selector, hashedValidator, usertype, userid, expires) VALUES (?, ?, ?, ?, ?)','sssis',$selector,hash('sha256', $authenticator), $userType, $userId, date('Y-m-d H:i:s', $limit));
+}
 
 
 if(isset($_POST['username'])&&isset($_POST['password'])) {
   require_once('sqlconfig.php');
 
-	if(connexionEtudiant($_POST['username'],$_POST['password'])) {echo 'étudiant';} //Vérifier si étudiant
-	elseif(connexionProf($_POST['username'],encryptPassword($_POST['password']))) {echo 'prof';} //Vérifier si prof
+	if(connexionEtudiant($_POST['username'],$_POST['password'])) { //Vérifier si étudiant
+    if(isset($_POST['keepMeLogged'])&&$_POST['keepMeLogged']=='true') {setKeepMeLoggedCookie('e',$_SESSION['matricule']);}
+    echo 'étudiant';
+    }
+	elseif(connexionProf($_POST['username'],$_POST['password'])) { //Vérifier si prof
+    if(isset($_POST['keepMeLogged'])&&$_POST['keepMeLogged']=='true') {setKeepMeLoggedCookie('p',$_SESSION['index']);}
+    echo 'prof';
+    }
 	else{ echo 'Mauvais nom d\'utilisateur ou mot de passe.'; }//*/
 	}
 else {echo 'Error.';}

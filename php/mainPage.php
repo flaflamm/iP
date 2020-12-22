@@ -6,10 +6,20 @@
 ***            "toutes" les pages             ***
 *************************************************/
 require_once('php/utils.php');
+require_once('php/sqlconfig.php');
 //Déconnecter l'utilisateur si le querystring contient dc=dc
 if(isset($_GET['dc']) && $_GET['dc']=='dc') {
   $_SESSION=array();
   session_destroy();
+  if(isset($_COOKIE['remember'])) {
+    list($selector, $authenticator) = explode(':', $_COOKIE['remember']);
+    mysqliQuery('DELETE FROM `AuthTokens` WHERE selector = ? AND `hashedValidator` = ?','ss',$selector, hash('sha256', base64_decode($authenticator))); //Efface l'entrée dans la base de donnée
+    mysqliQuery('DELETE FROM `AuthTokens` WHERE `expires` < NOW()'); //On en profite pour effacer les entrées passé date...
+
+    unset($_COOKIE['remember']);
+    // empty value and expiration one hour before
+    setcookie('remember', '', time() - 3600);
+  }
 }
 
 //Créer l'objet user

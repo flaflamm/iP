@@ -92,7 +92,15 @@ class prof extends utilisateur {
 			if(isset($info['rv'])) {$this->rv=$info['rv'];}
 			if(isset($info['superuser']) && $info['superuser']) {$this->superuser=TRUE;}
 		}
-		else { $this->id=$info; }
+		else {
+			$this->id=$info;
+			$results = mysqliQuery('SELECT `nom`, `prenom`, `courriel`, `rv`, `superuser` FROM `Profs` WHERE `index` = ?','i',$this->id);
+			$this->nom = $results[0]['nom'];
+			$this->prenom = $results[0]['prenom'];
+			$this->courriel = $results[0]['courriel'];
+			$this->rv = $results[0]['rv'];
+			$this->superuser = $results[0]['superuser'];
+		}
 
 		$this->type='p';
 
@@ -156,6 +164,23 @@ class nonConnecte extends utilisateur {
 function chargeUtilisateur() {
 	if(isset($_SESSION['matricule'])) {return new etudiant($_SESSION);}
 	if(isset($_SESSION['index'])) {return new prof($_SESSION);}
+
+	//Vérifier si connecté avec un cookie "remember"
+	if(isset($_COOKIE['remember'])) {
+		list($selector, $authenticator) = explode(':', $_COOKIE['remember']);
+
+		$results = mysqliQuery('SELECT * FROM AuthTokens WHERE selector = ? AND `expires` > NOW()','s',$selector);
+		foreach($results as $row) {
+			if (hash_equals($row['hashedValidator'], hash('sha256', base64_decode($authenticator)))) {
+	        //Le cookie est valide
+					if($row['usertype']=='e') {return new etudiant($row['userid']);}
+					elseif($row['usertype']=='p') {return new prof($row['userid']);}
+	    }
+		}
+
+
+	}
+
 	return new nonConnecte();
 }
 ?>

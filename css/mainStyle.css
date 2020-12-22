@@ -6,7 +6,7 @@
 *** Style de la page ***
 ***********************/
 body {
-  color: #444;
+  color: #424446;
 }
 
 main {
@@ -39,7 +39,7 @@ main section.title {
 *** Style de l'entête ***
 ************************/
 header {
-  background-color: #444;
+  background-color: #424446;
   color: white;
   margin-bottom: 0.6rem;
   border-bottom: 0.9rem solid #0068D3;
@@ -134,7 +134,7 @@ header.menu nav #menuIcon {
 @media screen and (min-width: 600px) {
   #mainMenu.open {
     display: block;
-    background-color: #444;
+    background-color: #424446;
     position: absolute;
     right: -1rem;
   }
@@ -171,7 +171,7 @@ header.menu nav #menuIcon {
 }
 
 #message.caution {
-  border-bottom: 1px solid #f9bf10;
+  border-bottom: 1px solid #F9BF10;
   background-color: #fdeebe;
   color: #866603;
 }
@@ -304,7 +304,7 @@ hr {
 *** Styles des tableaux ***
 **************************/
 table {
-  border: 1px solid #999;
+  border: 1px solid #96999C;
   border-collapse: collapse;
 }
 
@@ -313,7 +313,7 @@ table td, table th {
 }
 
 table thead, table th {
-  background-color: #e0e0e0;
+  background-color: #e0e0e1;
   font-weight: 600;
   text-align: left;
 }
@@ -323,7 +323,7 @@ table tr:nth-child(even) {
 }
 
 table tfoot {
-  background-color: #ebebeb;
+  background-color: #eaebeb;
   font-weight: 600;
 }
 
@@ -345,11 +345,11 @@ button:hover, .button:hover, input[type=submit]:hover {
 }
 
 button.secondary, .button.secondary, input[type=submit].secondary {
-  background-color: #999;
+  background-color: #96999C;
 }
 
 button.secondary:hover, .button.secondary:hover, input[type=submit].secondary:hover {
-  background-color: #a6a6a6;
+  background-color: #a3a6a8;
 }
 
 button.alert, .button.alert, input[type=submit].alert {
@@ -422,7 +422,7 @@ input:not([type="checkbox"]):not([type="radio"]), select {
   font-size: 1.25em;
   margin-bottom: 1rem;
   text-align: center;
-  border: 1px solid #999;
+  border: 1px solid #96999C;
 }
 
 input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), select:not([type="submit"]) {
@@ -466,7 +466,7 @@ input[type="checkbox"], input[type="radio"] {
   margin: 0;
   padding: 1rem 2rem 1rem 2rem;
   height: 4.8rem;
-  border: 1px solid #999;
+  border: 1px solid #96999C;
 }
 
 .inlineInput *:not(input):not(select).accent:first-child, .inlineInput *:not(input):not(select).secondary:first-child {
@@ -483,9 +483,9 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 .inlineInput *:not(input):not(select).secondary {
-  background-color: #e6e6e6;
+  background-color: #e5e6e6;
 }
 
 fieldset {
-  border: 1px solid #444;
+  border: 1px solid #424446;
 }

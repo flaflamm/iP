@@ -86,10 +86,14 @@ function mainContent() {
         <label for="password">Mot de passe:</label>
         <input type='password' id='password' name='password'/>
         <br>
+        <label for="keepMeLogged">Rester connecté?</label>
+        <input type='checkbox' id='keepMeLogged' name='keepMeLogged' value='true'/>
+        <br>
         <input type='submit' id='connexion' value='Connexion' class='large' style='margin: 2rem 0 1rem 0;'/>
       </form>
       <p class='messages hidden' id='usernameMsg'>Votre nom d'utilisateur est formé par la première lettre de votre prénom suivie d'un maximum de 7 lettres de votre nom de famille, le tout en minuscules, sans accents, espaces, trait d'union ou autres ponctuations. Par exemple, le nom d'utilisateur de Éloï-Jean Wu-O'Connor serait: «ewuoconn».</p>
       <p class='messages hidden' id='passwordMsg'>Le mot de passe est simplement votre matricule.</p>
+      <p class='messages hidden' id='keepLoggedMsg'>Ne pas utiliser cette fonction sur un ordinateur public.</p>
     </section>
 
 
@@ -97,13 +101,14 @@ function mainContent() {
     <script>
         $('#username').focus(function() { $('#usernameMsg').slideDown('medium'); }).blur(function() { $('#usernameMsg').slideUp('medium'); });
         $('#password').focus(function() { $('#passwordMsg').slideDown('medium'); }).blur(function() { $('#passwordMsg').slideUp('medium'); });
+        $('#keepMeLogged').focus(function() { $('#keepLoggedMsg').slideDown('medium'); }).blur(function() { $('#keepLoggedMsg').slideUp('medium'); });
 
         $("#connect").submit(function(e){
             e.preventDefault();
             $.post($(this).attr("action"), $(this).serialize(), function(data, textStatus, jqXHR) {
                 //alert(data);
                 if (data=='prof') { window.location = window.location.href.split("?")[0]; }
-                else if (data=='étudiant') { window.location.href = "index.php"; } 
+                else if (data=='étudiant') { window.location.href = "index.php"; }
                 else { showMessage(data,'alert'); }
             });
         });
