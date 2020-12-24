@@ -6,8 +6,7 @@
 *** Style de la page ***
 ***********************/
 body {
-  color: #424446;
-}
+  color: #424446; }
 
 main {
   width: 90%;
@@ -21,19 +20,14 @@ main {
 
   section:nth-child(even) {
     background-color: lighten($accent-color2,30%);
-  }//*/
-}
-
-main section {
-  flex: 0 1 auto;
-  padding: 1rem;
-  width: 400px;
-  margin: 2rem 0;
-}
-
-main section.title {
-  width: 100%;
-}
+  }//*/ }
+  main > section {
+    flex: 0 1 auto;
+    padding: 1rem;
+    width: 400px;
+    margin: 2rem 0; }
+    main > section.title {
+      width: 100%; }
 
 /************************
 *** Style de l'entête ***
@@ -43,111 +37,71 @@ header {
   color: white;
   margin-bottom: 0.6rem;
   border-bottom: 0.9rem solid #0068D3;
-  box-shadow: 0 0.6rem 0 0 #4AD133;
-}
-
-header.noMenu {
-  padding: 1.5rem 2.5rem;
-}
-
-@media screen and (max-width: 670px) {
-  header.noMenu h1 {
-    font-size: 2em;
-  }
-}
-
-header.noMenu img {
-  vertical-align: -0.8em;
-  width: 7.25em;
-}
-
-header.menu {
-  padding: 1rem 2.5rem 0 2.5rem;
-}
-
-header.menu a img {
-  width: 180px;
-  max-width: 80%;
-}
-
-header.menu .greetings {
-  display: block;
-}
-
-header.menu .greetings span:first-child {
-  margin-right: 1rem;
-}
-
-@media screen and (min-width: 600px) {
-  header.menu .greetings {
-    float: right;
-    display: inline-block;
-    margin-right: 2rem;
-  }
-  header.menu .greetings span {
-    display: block;
-    line-height: 1;
-  }
-}
-
-header.menu nav {
-  position: relative;
-}
-
-header.menu nav #menuIcon {
-  float: right;
-  display: block;
-  font-size: 2.2em;
-  top: -1rem;
-}
+  box-shadow: 0 0.6rem 0 0 #4AD133; }
+  header.noMenu {
+    padding: 1.5rem 2.5rem; }
+    @media screen and (max-width: 670px) {
+      header.noMenu h1 {
+        font-size: 2em; } }
+    header.noMenu img {
+      vertical-align: -0.8em;
+      width: 7.25em; }
+  header.menu {
+    padding: 1rem 2.5rem 0 2.5rem; }
+    header.menu a img {
+      width: 180px;
+      max-width: 80%; }
+    header.menu .greetings {
+      display: block; }
+      header.menu .greetings span:first-child {
+        margin-right: 1rem; }
+    @media screen and (min-width: 600px) {
+      header.menu .greetings {
+        float: right;
+        display: inline-block;
+        margin-right: 2rem; }
+        header.menu .greetings span {
+          display: block;
+          line-height: 1; } }
+    header.menu nav {
+      position: relative; }
+      header.menu nav #menuIcon {
+        float: right;
+        display: block;
+        font-size: 2.2em;
+        top: -1rem; }
 
 #mainMenu {
-  display: none;
-}
-
-#mainMenu.open {
-  display: block;
-}
-
-#mainMenu.open a {
-  display: block;
-  color: white;
-  text-decoration: none;
-  padding: 0.75em 0;
-}
-
-#mainMenu.open a.sub {
-  padding-top: 0;
-}
-
-#mainMenu.open a.sub::before {
-  content: '';
-  display: inline-block;
-  width: 1.25rem;
-  height: 1.1rem;
-  margin-right: 0.75rem;
-  background-image: url("../icons/sub.svg");
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
-@media screen and (min-width: 600px) {
+  display: none; }
   #mainMenu.open {
-    display: block;
-    background-color: #424446;
-    position: absolute;
-    right: -1rem;
-  }
-  #mainMenu.open a {
-    padding: 0.5em 1.5em;
-  }
-}
-
-@media screen and (max-width: 599px) {
-  #mainMenu.open.open ~ .greetings {
-    display: none;
-  }
-}
+    display: block; }
+    #mainMenu.open a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 0.75em 0; }
+      #mainMenu.open a.sub {
+        padding-top: 0; }
+        #mainMenu.open a.sub::before {
+          content: '';
+          display: inline-block;
+          width: 1.25rem;
+          height: 1.1rem;
+          margin-right: 0.75rem;
+          background-image: url("../icons/sub.svg");
+          background-repeat: no-repeat;
+          background-size: contain; }
+    @media screen and (min-width: 600px) {
+      #mainMenu.open {
+        display: block;
+        background-color: #424446;
+        position: absolute;
+        right: -1rem; }
+        #mainMenu.open a {
+          padding: 0.5em 1.5em; } }
+    @media screen and (max-width: 599px) {
+      #mainMenu.open.open ~ .greetings {
+        display: none; } }
 
 /***********************************
 *** Style de la boîte de message ***
@@ -155,32 +109,23 @@ header.menu nav #menuIcon {
 #message {
   padding: 1rem 2rem;
   text-align: center;
-  display: none;
-}
-
-#message.alert {
-  border-bottom: 1px solid #E23811;
-  background-color: #fce2dc;
-  color: #83200a;
-}
-
-#message.success {
-  border-bottom: 1px solid #4AD133;
-  background-color: #f0fbee;
-  color: #2c811d;
-}
-
-#message.caution {
-  border-bottom: 1px solid #F9BF10;
-  background-color: #fdeebe;
-  color: #866603;
-}
-
-#message.accent {
-  border-bottom: 1px solid #0068D3;
-  background-color: #badcff;
-  color: #00366d;
-}
+  display: none; }
+  #message.alert {
+    border-bottom: 1px solid #E23811;
+    background-color: #fce2dc;
+    color: #83200a; }
+  #message.success {
+    border-bottom: 1px solid #4AD133;
+    background-color: #f0fbee;
+    color: #2c811d; }
+  #message.caution {
+    border-bottom: 1px solid #F9BF10;
+    background-color: #fdeebe;
+    color: #866603; }
+  #message.accent {
+    border-bottom: 1px solid #0068D3;
+    background-color: #badcff;
+    color: #00366d; }
 
 /***********************
 *** Style des titres ***
@@ -188,51 +133,44 @@ header.menu nav #menuIcon {
 h1 {
   font-size: 2.5em;
   font-weight: 300;
-  margin: 1em 0 0 0;
-}
+  margin: 1em 0 0 0; }
 
 h2 {
   font-size: 1.7em;
   font-weight: 300;
-  margin: 0.75em 0 0 0;
-}
+  margin: 0.75em 0 0 0; }
 
 h3, .h3-like {
   font-size: 1.2em;
   font-weight: 600;
-  margin: .5em 0 0 0;
-}
+  margin: .5em 0 0 0; }
 
 h4, .h4-like {
   font-size: 1.4286em;
   /* equiv 20px */
   font-weight: normal;
   line-height: 1.05em;
-  margin: 1.05em 0 0 0;
-}
+  margin: 1.05em 0 0 0; }
 
 h5, .h5-like {
   font-size: 1.2857em;
   /* equiv 18px */
   font-weight: normal;
   line-height: 1.1667em;
-  margin: 1.1667em 0 0 0;
-}
+  margin: 1.1667em 0 0 0; }
 
 h6, .h6-like {
   font-size: 1.1429em;
   /* equiv 16px */
   font-weight: normal;
   line-height: 1.3125em;
-  margin: 1.3125em 0 0 0;
-}
+  margin: 1.3125em 0 0 0; }
 
 /*********************
 *** Style de liens ***
 *********************/
 a {
-  color: #0068D3;
-}
+  color: #0068D3; }
 
 /***********************
 *** Style des icones ***
@@ -243,33 +181,36 @@ a {
   position: relative;
   top: 0.15em;
   cursor: pointer;
-}
+  /*** Frequently used ***
+  settings    : engrenage
+  edit        : crayon
+  visibility  : oeil
+  list        : Liste
+  chat        : Bulle de texte pleine avec texte
+  chat_bubble : Bulle de texte pleine sans texte
+  chat_bubble_outline : Bulle de texte vide
+  publish     : Flèche haut
+  ***********************/ }
 
 /*******************************
 *** Style de details/summary ***
 *******************************/
 .details .summary {
-  cursor: pointer;
-}
-
+  cursor: pointer; }
 .details > *:not(.summary) {
-  display: none;
-}
+  display: none; }
 
 /****************************
 *** Style des définitions ***
 ****************************/
 .definition {
   padding-left: 2rem;
-  position: relative;
-}
-
-.definition .definitionTerm {
-  font-weight: 600;
-  position: relative;
-  left: -2rem;
-  margin-right: 1rem;
-}
+  position: relative; }
+  .definition .definitionTerm {
+    font-weight: 600;
+    position: relative;
+    left: -2rem;
+    margin-right: 1rem; }
 
 /*********************************
 *** Style de ligne horizontale ***
@@ -278,140 +219,104 @@ hr {
   border: 0;
   height: 1px;
   margin: 1px;
-  background-image: linear-gradient(to right, rgba(77, 77, 77, 0), rgba(77, 77, 77, 0.3) 25%, rgba(77, 77, 77, 0.3) 75%, rgba(77, 77, 77, 0));
-}
+  background-image: linear-gradient(to right, rgba(77, 77, 77, 0), rgba(77, 77, 77, 0.3) 25%, rgba(77, 77, 77, 0.3) 75%, rgba(77, 77, 77, 0)); }
 
 /*************************
 *** Styles utilitaires ***
 *************************/
 .centered {
-  margin: auto;
-}
+  margin: auto; }
 
 .hidden {
-  display: none;
-}
+  display: none; }
 
 .light {
-  opacity: 0.75;
-}
+  opacity: 0.75; }
 
 .lighter {
-  opacity: 0.5;
-}
+  opacity: 0.5; }
 
 /**************************
 *** Styles des tableaux ***
 **************************/
 table {
   border: 1px solid #96999C;
-  border-collapse: collapse;
-}
-
-table td, table th {
-  padding: 0.2rem 1rem;
-}
-
-table thead, table th {
-  background-color: #e0e0e1;
-  font-weight: 600;
-  text-align: left;
-}
-
-table tr:nth-child(even) {
-  background-color: whitesmoke;
-}
-
-table tfoot {
-  background-color: #eaebeb;
-  font-weight: 600;
-}
+  border-collapse: collapse; }
+  table td, table th {
+    padding: 0.2rem 1rem; }
+  table thead, table th {
+    background-color: #e0e0e1;
+    font-weight: 600;
+    text-align: left; }
+  table tr:nth-child(even) {
+    background-color: whitesmoke; }
+  table tfoot {
+    background-color: #eaebeb;
+    font-weight: 600; }
 
 /*************************
 *** Styles des boutons ***
 *************************/
 button, .button, input[type=submit] {
   min-width: 6em;
-  padding: 0.75em;
+  padding: 0.5em 1.25em;
   background-color: #0068D3;
   color: white;
   border: none;
   margin: 1rem 2rem;
   cursor: pointer;
-}
-
-button:hover, .button:hover, input[type=submit]:hover {
-  background-color: #0075ed;
-}
-
-button.secondary, .button.secondary, input[type=submit].secondary {
-  background-color: #96999C;
-}
-
-button.secondary:hover, .button.secondary:hover, input[type=submit].secondary:hover {
-  background-color: #a3a6a8;
-}
-
-button.alert, .button.alert, input[type=submit].alert {
-  background-color: #E23811;
-}
-
-button.alert:hover, .button.alert:hover, input[type=submit].alert:hover {
-  background-color: #ee451e;
-}
-
-button.large, .button.large, input[type=submit].large {
-  font-size: 1.5em;
-}
-
-button:disabled, button.disabled, .button:disabled, .button.disabled, input[type=submit]:disabled, input[type=submit].disabled {
-  opacity: 0.65;
-  cursor: not-allowed;
-}
-
-button.settings, button.edit, button.visibility, .button.settings, .button.edit, .button.visibility, input[type=submit].settings, input[type=submit].edit, input[type=submit].visibility {
-  padding-right: 3em;
-  position: relative;
-}
-
-button.settings::after, button.edit::after, button.visibility::after, .button.settings::after, .button.edit::after, .button.visibility::after, input[type=submit].settings::after, input[type=submit].edit::after, input[type=submit].visibility::after {
-  position: absolute;
-  right: 0.75em;
-  font-family: 'Material Icons';
-}
-
-button.settings::after, .button.settings::after, input[type=submit].settings::after {
-  content: "settings";
-}
-
-button.edit::after, .button.edit::after, input[type=submit].edit::after {
-  content: "edit";
-}
-
-button.visibility::after, .button.visibility::after, input[type=submit].visibility::after {
-  content: "visibility";
-}
+  text-decoration: none;
+  border-radius: 7px; }
+  button:hover, .button:hover, input[type=submit]:hover {
+    background-color: #0075ed; }
+  button.secondary, .button.secondary, input[type=submit].secondary {
+    background-color: #96999C; }
+    button.secondary:hover, .button.secondary:hover, input[type=submit].secondary:hover {
+      background-color: #a3a6a8; }
+  button.alert, .button.alert, input[type=submit].alert {
+    background-color: #E23811; }
+    button.alert:hover, .button.alert:hover, input[type=submit].alert:hover {
+      background-color: #ee451e; }
+  button.large, .button.large, input[type=submit].large {
+    font-size: 1.5em; }
+  button:disabled, button.disabled, .button:disabled, .button.disabled, input[type=submit]:disabled, input[type=submit].disabled {
+    opacity: 0.65;
+    cursor: not-allowed; }
+  button .icon:first-child:not(:last-child), .button .icon:first-child:not(:last-child), input[type=submit] .icon:first-child:not(:last-child) {
+    padding-right: 0.75em; }
 
 .buttonBar {
-  display: inline-block;
-}
+  display: flex;
+  flex-flow: column nowrap; }
+  .buttonBar button, .buttonBar .button {
+    margin: 0 1rem 0.1rem 1rem;
+    border-radius: 0em; }
+    .buttonBar button:first-child, .buttonBar .button:first-child {
+      margin: 2rem 1rem 0.1rem 1rem;
+      border-top-left-radius: 7px;
+      border-top-right-radius: 7px; }
+    .buttonBar button:last-child, .buttonBar .button:last-child {
+      margin: 0 1rem 2rem 1rem;
+      border-bottom-left-radius: 7px;
+      border-bottom-right-radius: 7px; }
 
-.buttonBar.large button, .buttonBar.large .button {
-  font-size: 1.5em;
-}
-
-.buttonBar button, .buttonBar .button {
-  margin: 1rem 0 1rem 0.1rem;
-}
-
-.buttonBar button:first-child, .buttonBar .button:first-child {
-  margin-left: 2rem;
-}
-
-.buttonBar button:last-child, .buttonBar .button:last-child {
-  margin-right: 2rem;
-}
-
+@media screen and (min-width: 600px) {
+  .buttonBar {
+    flex-flow: row nowrap; }
+    .buttonBar.large button, .buttonBar.large .button {
+      font-size: 1.5em; }
+    .buttonBar button, .buttonBar .button {
+      margin: 1rem 0 1rem 0.1rem; }
+      .buttonBar button:first-child, .buttonBar .button:first-child {
+        margin: 1rem 0 1rem 2rem;
+        border-top-left-radius: 7px;
+        border-bottom-left-radius: 7px;
+        border-top-right-radius: 0; }
+      .buttonBar button:last-child, .buttonBar .button:last-child {
+        margin: 1rem 2rem 1rem 0.1rem;
+        border-top-right-radius: 7px;
+        border-bottom-right-radius: 7px;
+        border-bottom-left-radius: 0; } }
 /****************************
 *** Styles de formulaires ***
 ****************************/
@@ -422,70 +327,48 @@ input:not([type="checkbox"]):not([type="radio"]), select {
   font-size: 1.25em;
   margin-bottom: 1rem;
   text-align: center;
-  border: 1px solid #96999C;
-}
-
-input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), select:not([type="submit"]) {
-  background-color: white;
-}
-
-input:not([type="checkbox"]):not([type="radio"]).large, select.large {
-  height: 7.2rem;
-}
+  border: 1px solid #96999C; }
+  input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), select:not([type="submit"]) {
+    background-color: white; }
+  input:not([type="checkbox"]):not([type="radio"]).large, select.large {
+    height: 7.2rem; }
 
 input[type="checkbox"], input[type="radio"] {
   height: 1.35em;
   width: 1.35em;
   position: relative;
-  top: 0.2em;
-}
+  top: 0.2em; }
 
 .inlineInput {
-  display: flex;
-}
-
-.inlineInput input, .inlineInput select {
-  flex: 1 1 auto;
-}
-
-.inlineInput *:not(input):not(select) {
-  margin: 1rem 2rem 1rem 2rem;
-  word-wrap: normal;
-  flex: 0 0 auto;
-}
-
-.inlineInput *:not(input):not(select):first-child {
-  margin-left: 0;
-}
-
-.inlineInput *:not(input):not(select):last-child {
-  margin-right: 0;
-}
-
-.inlineInput *:not(input):not(select).accent, .inlineInput *:not(input):not(select).secondary {
-  margin: 0;
-  padding: 1rem 2rem 1rem 2rem;
-  height: 4.8rem;
-  border: 1px solid #96999C;
-}
-
-.inlineInput *:not(input):not(select).accent:first-child, .inlineInput *:not(input):not(select).secondary:first-child {
-  border-right: none;
-}
-
-.inlineInput *:not(input):not(select).accent:last-child, .inlineInput *:not(input):not(select).secondary:last-child {
-  border-left: none;
-}
-
-.inlineInput *:not(input):not(select).accent {
-  background-color: #0068D3;
-  color: white;
-}
-
-.inlineInput *:not(input):not(select).secondary {
-  background-color: #e5e6e6;
-}
+  display: flex; }
+  .inlineInput input, .inlineInput select {
+    flex: 1 1 auto; }
+  .inlineInput *:not(input):not(select) {
+    margin: 1rem 2rem 1rem 2rem;
+    word-wrap: normal;
+    flex: 0 0 auto; }
+    .inlineInput *:not(input):not(select):first-child {
+      margin-left: 0; }
+    .inlineInput *:not(input):not(select):last-child {
+      margin-right: 0; }
+    .inlineInput *:not(input):not(select).accent, .inlineInput *:not(input):not(select).secondary {
+      margin: 0;
+      padding: 1rem 2rem 1rem 2rem;
+      height: 4.8rem;
+      border: 1px solid #96999C; }
+      .inlineInput *:not(input):not(select).accent:first-child, .inlineInput *:not(input):not(select).secondary:first-child {
+        border-right: none; }
+      .inlineInput *:not(input):not(select).accent:last-child, .inlineInput *:not(input):not(select).secondary:last-child {
+        border-left: none; }
+    .inlineInput *:not(input):not(select).accent {
+      background-color: #0068D3;
+      color: white; }
+    .inlineInput *:not(input):not(select).secondary {
+      background-color: #e5e6e6; }
 
 fieldset {
-  border: 1px solid #424446;
-}
+  border: 1px solid #424446; }
+  fieldset > legend {
+    font-weight: 600; }
+
+/*# sourceMappingURL=mainStyle.css.map */

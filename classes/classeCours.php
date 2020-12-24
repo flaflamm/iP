@@ -9,7 +9,6 @@ class cours {
 	private $groupeEtudiant; //Contiendra le groupe de l'étudiant (si c'est le cours d'un étudiant)
 	private $categories;
 	private $session;
-	//private $profs;
 	private $etudiants;
 
 	function __construct($data) {
@@ -42,7 +41,7 @@ class cours {
 	}
 
 	function getGroupe() {
-		return $this->groupe;
+		return $this->groupeEtudiant;
 	}
 
 	function getEtudiants($groupe=NULL) {
@@ -83,7 +82,7 @@ class cours {
 	}
 
 	private function loadProfs() {
-		//Charge la liste des professeurs associés à ce cours
+		//Charge la liste des professeurs associés à ce cours/groupeEtudiant
 		global $mysqli;
 		require_once('classeUtilisateur.php');
 		$results = $mysqli->query("SELECT `Profs`.`index`, `Profs`.`nom`, `Profs`.`prenom`, `Profs`.`rv` FROM `Profs`, `Liste-Cours-Profs` WHERE `Liste-Cours-Profs`.`prof`=`Profs`.`index` AND `Liste-Cours-Profs`.`cours`=".$this->id." AND `Liste-Cours-Profs`.`groupes` REGEXP '^(([0-9]+,)*".$this->groupeEtudiant."(,[0-9]+)*)|(tous)$'");
@@ -137,9 +136,9 @@ class cours {
 
 	private function loadCategories() {
 		global $mysqli;
-		$resultsCategory = $mysqli->query("SELECT * FROM `Categorie-Evaluations` WHERE `cours`=$_SESSION[cours] AND ( `prof`=$_SESSION[prof] OR `prof`=0 ) ORDER BY `cours` DESC");
+		$resultsCategory = $mysqli->query("SELECT * FROM `Categorie-Evaluations` WHERE `cours`='".$this->getId()."'");
 
-		require_once(dirname(dirname(__FILE__)).'/cours/classeCategorieEvaluation.php');
+		require_once(dirname(dirname(__FILE__)).'/classes/classeCategorieEvaluation.php');
 		while($categorieInfos = $resultsCategory->fetch_assoc()) {
 			if($categorieInfos['devoirs-params']!=0 || $categorieInfos['theorie-params']) { $this->categories[]=new categorieDevoirs($this->id,$categorieInfos); }
 			elseif($categorieInfos['equipes-params']!=0) { $this->categories[]=new categorieEquipes($this->id,$categorieInfos); }

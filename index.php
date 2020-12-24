@@ -74,6 +74,9 @@ function mainContent() {
     varDump($listeRv);
     echo '</section>';//*/
   }
+  elseif($user->getType()=='e') { //La personne est connectée (et c'est un étudiant)
+    //Affichage de la liste de cours
+  }
   else {  //Pas connecté, envoyer la page de connexion.
     ?>
     <section class='centered' style='max-width: 400px; margin-top: 24px;'>

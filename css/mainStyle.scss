@@ -9,14 +9,8 @@ $accent-color2: #4AD133;
 $alert-color: #E23811;
 $caution-color: #F9BF10;
 
+$radius: 7px;
 
-
-@mixin border-radius($radius:5px) {
-  -webkit-border-radius: $radius;
-     -moz-border-radius: $radius;
-      -ms-border-radius: $radius;
-          border-radius: $radius;
-}
 
 
 
@@ -36,7 +30,7 @@ main {
   flex-flow: row wrap;
   justify-content: space-around;
 
-  section {
+  &>section {
     flex: 0 1 auto;
     padding: 1rem;
     width: 400px;
@@ -257,6 +251,17 @@ a {
   position: relative;
   top: 0.15em;
   cursor: pointer;
+
+  /*** Frequently used ***
+  settings    : engrenage
+  edit        : crayon
+  visibility  : oeil
+  list        : Liste
+  chat        : Bulle de texte pleine avec texte
+  chat_bubble : Bulle de texte pleine sans texte
+  chat_bubble_outline : Bulle de texte vide
+  publish     : Flèche haut
+  ***********************/
 }
 
 
@@ -354,12 +359,14 @@ table {
 
 button, .button, input[type=submit] {
   min-width: 6em;
-  padding: 0.75em;
+  padding: 0.5em 1.25em;
   background-color: $accent-color1;
   color: white;
   border: none;
   margin: 1rem 2rem;
   cursor: pointer;
+  text-decoration: none;
+  border-radius: $radius;
 
   &:hover { background-color: lighten($accent-color1, 5%); }
 
@@ -378,36 +385,59 @@ button, .button, input[type=submit] {
     cursor: not-allowed;
   }
 
-  &.settings, &.edit, &.visibility {
-    padding-right: 3em;
-    position: relative;
+  .icon:first-child:not(:last-child) {
+    padding-right: 0.75em;
+  }
+}
 
-    &::after {
-      position: absolute;
-      right: 0.75em;
-      font-family: 'Material Icons';
+.buttonBar {
+  display: flex;
+  flex-flow: column nowrap;
+
+  button, .button {
+    margin: 0 1rem 0.1rem 1rem;
+    border-radius: 0em;
+
+    &:first-child {
+      margin: 2rem 1rem 0.1rem 1rem;
+      border-top-left-radius: $radius;
+      border-top-right-radius: $radius;
+
+    }
+    &:last-child {
+      margin: 0 1rem 2rem 1rem;
+      border-bottom-left-radius: $radius;
+      border-bottom-right-radius: $radius;
     }
   }
 
-  &.settings::after { content: "settings"; }
-  &.edit::after { content: "edit"; }
-  &.visibility::after { content: "visibility"; }
 }
 
+@media screen and (min-width: 600px) {
+  .buttonBar {
+    flex-flow: row nowrap;
 
-.buttonBar {
+    &.large button, &.large .button {font-size: 1.5em;}
 
-  display: inline-block;
+    button, .button {
+      margin: 1rem 0 1rem 0.1rem;
 
-  &.large button, &.large .button {font-size: 1.5em;}
-
-  button, .button {
-    margin: 1rem 0 1rem 0.1rem;
-
-    &:first-child {margin-left: 2rem;}
-    &:last-child {margin-right: 2rem;}
+      &:first-child {
+        margin: 1rem 0 1rem 2rem;
+        border-top-left-radius: $radius;
+        border-bottom-left-radius: $radius;
+        border-top-right-radius: 0;
+      }
+      &:last-child {
+        margin: 1rem 2rem 1rem 0.1rem;
+        border-top-right-radius: $radius;
+        border-bottom-right-radius: $radius;
+        border-bottom-left-radius: 0;
+      }
+    }
   }
 }
+
 
 /****************************
 *** Styles de formulaires ***
@@ -474,4 +504,8 @@ input[type="checkbox"], input[type="radio"] {
 
 fieldset {
   border: 1px solid $primary-color;
+
+  &>legend {
+    font-weight: 600;
+  }
 }

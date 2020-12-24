@@ -42,7 +42,7 @@
 
 
 //Vérifier que le nom de serveur est le bon
-if($_SERVER['SERVER_NAME'] == 'localhost' || $_SERVER['SERVER_NAME'] == '192.168.0.175') {
+if($_SERVER['SERVER_NAME'] == 'localhost' || $_SERVER['SERVER_NAME'] == '192.168.0.100') {
   //Fournir les bons noms d'utilisateur et mot de passe...
 	$mysqli = new mysqli("localhost","flaflamme","ie1$3v1L", "profs_flaflamme2");
 	if ($mysqli->connect_errno) { echo "Echec lors de la connexion à MySQL : (" . $mysqli->connect_errno . ") " . $mysqli->connect_error; }

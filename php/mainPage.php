@@ -70,7 +70,7 @@ function loadPage($jsFiles) {
       <?php
       mainContent();
       if(error_reporting()) {
-        echo '<section style="width:100%; display: flex; flex-flow: row wrap;">';
+        echo '<section style="width:100%; display: flex; flex-flow: row wrap;"> Session:<br>';
         varDump($_SESSION);
         //echo '</section><section>';
         varDump($user);

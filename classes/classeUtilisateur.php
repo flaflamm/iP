@@ -44,9 +44,12 @@ class etudiant extends utilisateur {
   function getMatricule() {return $this->id;}
 
 	function getCours($type) {
-		if(is_null($this->cours)) { $this->loadCours(); }
+		if(is_null($this->cours)) { $this->loadCours(); } //Charge les cours si ce n'est pas déjà fait.
 
-		if(is_numeric($type)) {return $this->cours[$type];} //Retourne le cours demandé
+		if(is_numeric($type)) {
+			if(isset($this->cours[$type])) {return $this->cours[$type];} //Retourne le cours demandé
+			else {return FALSE;} //Le cours demandé ne fait pas partie de la liste de cours de l'étudiant, retourne FALSE
+		}
 		return $this->cours; //PAR DÉFAUT: Retourne tous les Cours
 	}
 
@@ -114,7 +117,10 @@ class prof extends utilisateur {
 	function getCours($type) {
 		if(is_null($this->cours)) { $this->loadCours(); }
 
-		if(is_numeric($type)) {return $this->cours[$type];} //Retourne le cours demandé
+		if(is_numeric($type)) {
+			if(isset($this->cours[$type])) {return $this->cours[$type];} //Retourne le cours demandé
+			else {return FALSE;} //Le cours demandé ne fait pas partie de la liste de cours de l'étudiant, retourne FALSE
+		}
 		if($type=='tous') {return $this->cours;} //Retourne tous les Cours
 		//PAR DÉFAUT: Retourne uniquement les cours de la session la plus récente.
 		$listeCours = array();
